@@ -33,13 +33,14 @@ function game(){
     let computerScore = 0;
 
     for (let i=0;i<5;i++){
-        let playerSelection = prompt("Rock Paper Scissors: ").toLowerCase();
+        //let playerSelection = prompt("Rock Paper Scissors: ").toLowerCase();
         let computerSelection = computerPlay();
 
         let res = playRound(playerSelection,computerSelection);
 
         console.log(res[0]);
         
+
         if (res[0] == "tie"){
             console.log(`Player-score: ${playerScore}  Computer-score: ${computerScore}`);
         }
