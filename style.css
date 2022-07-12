@@ -10,7 +10,7 @@ body{
 }
 
 .rock-paper-scissors{
-    font-size: 80px;
+    font-size: 50px;
     color: #FFFFFF;
     font-family:'Courier New', Courier, monospace;
     font-weight: bold;
@@ -28,7 +28,7 @@ body{
 .score,
 .player_name,
 .player_score{
-    font-size: 24px;
+    font-size: 16px;
     font-family:'Courier New', Courier, monospace;
     color: #FFFFFF;
     font-weight: bold;
@@ -39,7 +39,7 @@ body{
     display: flex;
     justify-content: center;
 
-    padding: 30px;
+    padding: 27px;
 }
 
 .pic{
@@ -49,8 +49,8 @@ body{
 }
 
 img {
-    width: 130px;
-    height: 130px;
+    width: 70px;
+    height: 70px;
     border: solid white;
     padding: 14px;
     border-radius: 10px;
