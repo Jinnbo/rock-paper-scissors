@@ -146,3 +146,15 @@ function handleClick(playerChoice){
     playRound(computerChoice,playerChoice);
 
 }
+
+/*
+    TODO:
+- First to 5 wins 
+- Reset game when someone reaches 5
+- Create popup menu for winning/losing
+- Add sound effect when clicking buttons
+- Make UI look better
+
+
+
+*/
