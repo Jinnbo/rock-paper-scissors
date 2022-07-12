@@ -6,11 +6,23 @@ const computerScore = document.getElementById('computerScore');
 const playerScore = document.getElementById('playerScore');
 const playerPlaceholder = document.getElementById('playerPlaceholder');
 const computerPlaceholder = document.getElementById('computerPlaceholder');
+const gameOver = document.getElementById('gameoverScreen');
+const overlay = document.getElementById('overlay');
+const gameoverMsg = document.getElementById('gameoverMsg');
+const btnRestart = document.getElementById('btnRestart');
+
+// Audio
+const audio = document.getElementById('tink');
+const winSound = document.getElementById('win');
+const loseSound = document.getElementById('lose');
+winSound.volume = 0.05;
+loseSound.volume = 0.05;
 
 // Event listeners
 rockBtn.addEventListener("click", () => handleClick('ROCK'));
 scissorsBtn.addEventListener("click", () => handleClick('SCISSORS'));
 paperBtn.addEventListener("click", () => handleClick('PAPER'));
+btnRestart.addEventListener("click", () => gameReset());
 
 // Global Variables
 let rounds = 0;
@@ -75,12 +87,6 @@ function playRound(computerChoice, playerChoice){
     updateScores();
 }
 
-// Update score and choice
-function updateScores(){
-    playerScore.textContent = pScore;
-    computerScore.textContent = cScore;
-}
-
 // Randomized computer choice
 function computerSelection(){
 
@@ -96,6 +102,12 @@ function computerSelection(){
         case 2:
             return 'SCISSORS';
     }
+}
+
+// Update score and choice
+function updateScores(){
+    playerScore.textContent = pScore;
+    computerScore.textContent = cScore;
 }
 
 // Update player and computer placeholder
@@ -115,6 +127,9 @@ function updatePlaceholders(computer, player){
         case 'SCISSORS':
             playerPlaceholder.src="./imgs/scissors.png";
             break;
+        case 'PLACEHOLDER':
+            playerPlaceholder.src="./imgs/placeholder.png";
+            break;
     }
 
     // Update Computer Placeholder
@@ -122,28 +137,81 @@ function updatePlaceholders(computer, player){
         case 'ROCK':
             computerPlaceholder.src="./imgs/rock.png";
             break;
-
         case 'PAPER':
             computerPlaceholder.src="./imgs/paper.png";
             break;
-
         case 'SCISSORS':
             computerPlaceholder.src="./imgs/scissors.png";
             break;
+        case 'PLACEHOLDER':
+            computerPlaceholder.src="./imgs/placeholder.png";
+            break;
     }
+}
+
+// Check game over function
+function isGameover(){
+    return (cScore == 5 || pScore == 5);
+}
+
+// Game over screen
+function gameoverScreen(){
+
+    // Display game over screen
+    pScore == 5 ? gameoverMsg.textContent = "YOU WON" :  gameoverMsg.textContent = "YOU LOSS";
+    gameOver.classList.add('active');
+    overlay.classList.add('active');
+}
+
+function gameReset(){
+    
+    // Remove game over screen
+    gameOver.classList.remove('active');
+    overlay.classList.remove('active');
+
+    // Reset variables 
+    cScore = 0;
+    pScore = 0;
+    updateScores();
+    updatePlaceholders('PLACEHOLDER','PLACEHOLDER');
+
+}
+
+// Play end sound track
+function endSoundtrack(){
+    pScore == 5 ? winSound.play() : loseSound.play();
 }
 
 // Player Choice
 function handleClick(playerChoice){
 
-    // Get Player Choice
-    let computerChoice = computerSelection();
+    if (isGameover()){
 
-    // Call update player and computer placeholder
-    updatePlaceholders(computerChoice,playerChoice);
+        // Play winning/losing soundtrack
+        endSoundtrack();
 
-    // Call playround
-    playRound(computerChoice,playerChoice);
+        // Call popup function
+        gameoverScreen();
+        
+
+        // Call reset game function
+
+    }
+    else{
+
+        // Play tink sound when player chooses option
+        audio.play();
+        
+        // Get Player Choice
+        let computerChoice = computerSelection();
+        
+        // Call update player and computer placeholder
+        updatePlaceholders(computerChoice,playerChoice);
+        
+        // Call playround
+        
+        playRound(computerChoice,playerChoice);
+    }   
 
 }
 
